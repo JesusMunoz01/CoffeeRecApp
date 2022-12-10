@@ -76,9 +76,9 @@ CoffeeRecipe maketestRecipe2() {
 List<CoffeeRecipe> getAllRecipes() {
   return [
     makeSweetMariasRecipe(),
-    makeHomegroundsRecipe(),
     maketestRecipe(),
-    maketestRecipe2()
+    maketestRecipe2(),
+    makeHomegroundsRecipe()
   ];
 }
 

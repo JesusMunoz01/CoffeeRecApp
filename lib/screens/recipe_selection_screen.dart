@@ -1,3 +1,5 @@
+// ignore_for_file: sdk_version_ui_as_code
+
 import 'package:flutter/material.dart';
 import 'package:homebrew_dripper/models/coffee_recipe.dart';
 import 'package:homebrew_dripper/models/resource_info.dart';
@@ -44,6 +46,7 @@ class RecipeSelectionScreen extends StatelessWidget {
 
 class RecipeList extends StatelessWidget {
   List<CoffeeRecipe> recipes = CoffeeData.loadRecipes();
+  int count = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -77,7 +80,7 @@ class RecipeList extends StatelessWidget {
                       );
                     },
                   ),
-                  if (recipe.name != "Test Recipe")
+                  if (recipe.name != "Homegrounds Recipe")
                     const Divider(
                       thickness: 1,
                       color: Color(0xFF4C74BD),
