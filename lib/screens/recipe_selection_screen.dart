@@ -1,3 +1,5 @@
+// ignore_for_file: sdk_version_ui_as_code
+
 import 'package:flutter/material.dart';
 import 'package:homebrew_dripper/models/coffee_recipe.dart';
 import 'package:homebrew_dripper/screens/recipe_detail_screen.dart';
@@ -24,22 +26,24 @@ class RecipeSelectionScreen extends StatelessWidget {
 
 class RecipeList extends StatelessWidget {
   List<CoffeeRecipe> recipes = CoffeeData.loadRecipes();
-
+  int count = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         for (CoffeeRecipe recipe in recipes)
           ListTile(
-              title: Text(recipe.name),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => RecipeDetailScreen(recipe)),
-                );
-              })
+            title: Text(recipe.name),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => RecipeDetailScreen(recipe)),
+              );
+            },
+            key: Key('recipe-${recipe.name}'),
+          )
       ],
     );
   }

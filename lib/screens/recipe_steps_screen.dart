@@ -71,11 +71,19 @@ class _RecipeStepsScreenState extends State<RecipeStepsScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.chevron_left,
+            color: Color(0xff4c748b),
+          ),
+          onPressed: () => Navigator.of(context).pop(),
+          key: Key('steps-back-btn'),
+        ),
         title: Text("Recipe Steps"),
       ),
       body: ListView(
         children: [
-          Text("${currentRecipeStep.text}"),
+          Text("${currentRecipeStep.text}",key: Key('recipe-step'),),
           Text("${stepTimeRemaining}"),
           Text("Steps"),
           for (RecipeStep step in remainingSteps)
