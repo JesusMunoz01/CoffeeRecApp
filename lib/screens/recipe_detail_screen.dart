@@ -22,16 +22,18 @@ class RecipeDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.chevron_left,
-            color: Color(0xff4c748b),
-          ),
-          onPressed: () => Navigator.of(context).pop(),
-          key: Key('details-back-btn'),
-        ),
-        backgroundColor: Colors.white10,
+        backgroundColor: Colors.transparent,
         elevation: 0,
+        key: Key("bbackButton"),
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Color(0xFF4C748B),
+            ),
+            key: Key('goBack'),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
       ),
       body: ListView(
         children: [
@@ -175,7 +177,7 @@ class StepsList extends StatelessWidget {
                 // shape: RoundedRectangleBorder(
                 //     side: BorderSide(width: 2, color: Color(0xff4c748b), ),
                 //     borderRadius: BorderRadius.circular(10)),
-                    visualDensity: VisualDensity(vertical: -2),
+                visualDensity: VisualDensity(vertical: -2),
                 dense: true,
                 title: Text(
                   s.text,
