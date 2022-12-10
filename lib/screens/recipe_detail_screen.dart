@@ -11,14 +11,25 @@ class RecipeDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Recipe Details"),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        key: Key("bbackButton"),
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Color(0xFF4C748B),
+            ),
+            key: Key('goBack'),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
       ),
       body: ListView(
         children: [
           Text(recipe.name),
           Text("${recipe.coffeeVolumeGrams}"),
           Text("${recipe.waterVolumeGrams}"),
-          RaisedButton(
+          ElevatedButton(
             child: Text("Start"),
             onPressed: () {
               Navigator.push(
