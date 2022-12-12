@@ -105,30 +105,34 @@ class _RecipeStepsScreenState extends State<RecipeStepsScreen> {
           ),
           // ignore: sdk_version_ui_as_code
           for (RecipeStep step in remainingSteps)
-            Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                child: Container(
+            if (currentRecipeStep == step)
+              Padding(
+                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(
-                          color: HombrewColors.colors.blue, width: 2),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                        border: Border.all(
+                            color: HombrewColors.colors.white, width: 2),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: ListTile(
-                      // shape: RoundedRectangleBorder(
-                      //     side: BorderSide(
-                      //         width: 2, color: HombrewColors.colors.white),
-                      //     borderRadius: BorderRadius.circular(10)),
-                      visualDensity: VisualDensity(vertical: -2),
-                      dense: true,
-                      title: Text(
-                        step.text,
-                        style: TextStyle(
-                          color: HombrewColors.colors.white,
-                          fontFamily: 'Kollektif',
-                          fontSize: 14,
-                        ),
+                        title: Text(step.text,
+                            style: TextStyle(
+                                color: HombrewColors.colors.white,
+                                fontFamily: 'Kollektif',
+                                fontSize: 14))),
+                  ))
+            else
+              Padding(
+                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: ListTile(
+                    title: Text(
+                      step.text,
+                      style: TextStyle(
+                        color: HombrewColors.colors.white,
+                        fontFamily: 'Kollektif',
+                        fontSize: 14,
                       ),
-                    )))
+                    ),
+                  ))
         ],
       ),
     );
