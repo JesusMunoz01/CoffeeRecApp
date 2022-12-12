@@ -18,6 +18,15 @@ class RecipeDetailScreen extends StatelessWidget {
     return totalTime;
   }
 
+  String retTime(time){
+    if(time % 60 < 10){
+      return "0${(time % 60).floor().toString()}";
+    }
+    else{
+      return "${(time % 60).floor().toString()}";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,7 +126,7 @@ class RecipeDetailScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    'Total: ${(totTime(recipe) / 60).floor().toString()}:${(totTime(recipe) % 60).floor().toString()}',
+                    'Total: ${(totTime(recipe) / 60).floor().toString()}:${retTime(totTime(recipe))}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         color: Color(0xff4c748b),
@@ -160,6 +169,15 @@ class RecipeDetailScreen extends StatelessWidget {
 class StepsList extends StatelessWidget {
   CoffeeRecipe recipe;
   StepsList(this.recipe);
+
+  String retTime(time){
+    if(time % 60 < 10){
+      return "0${(time % 60).floor().toString()}";
+    }
+    else{
+      return "${(time % 60).floor().toString()}";
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -189,7 +207,7 @@ class StepsList extends StatelessWidget {
                   key: Key('steps-text'),
                 ),
                 trailing: Text(
-                  "0${(s.time / 60).floor().toString()}:${(s.time % 60).floor().toString()}",
+                  "0${(s.time / 60).floor().toString()}:${retTime(s.time)}",
                   style: TextStyle(
                       color: Color(0xff4c748b),
                       fontFamily: 'Kollektif',

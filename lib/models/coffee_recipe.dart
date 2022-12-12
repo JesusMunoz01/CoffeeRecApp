@@ -10,8 +10,24 @@ class CoffeeRecipe {
 
   CoffeeRecipe(name, coffeeVolumeGrams, waterVolumeGrams, grindSize,
       miscDetails, steps) {
-    //add any rules to reject invalid values
-    //for example, reject negative gram amounts
+
+    if(name == ''){
+      throw ArgumentError();
+    }
+    if(coffeeVolumeGrams <= 0){
+      throw ArgumentError();
+    }
+    if(waterVolumeGrams <= 0){
+      throw ArgumentError();
+    }
+    if(grindSize == ''){
+      throw ArgumentError();
+    }
+    if(steps.length <= 0){
+      throw ArgumentError();
+    }
+
+
     this.name = name;
     this.coffeeVolumeGrams = coffeeVolumeGrams;
     this.waterVolumeGrams = waterVolumeGrams;
