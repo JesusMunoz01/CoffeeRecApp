@@ -61,11 +61,11 @@ CoffeeRecipe makeTexasCoffeeSchoolRecipe() {
 
 CoffeeRecipe maketestRecipe2() {
   List<RecipeStep> steps = [
-    RecipeStep("Add 50g water", 5),
-    RecipeStep("Add remaining water (295g)", 5),
-    RecipeStep("Cover and wait", 5),
-    RecipeStep("Stir", 5),
-    RecipeStep("Place on mug and wait", 5),
+    RecipeStep("Add 50g water", 30),
+    RecipeStep("Add remaining water (295g)", 05),
+    RecipeStep("Cover and wait", 90),
+    RecipeStep("Stir", 05),
+    RecipeStep("Place on mug and wait", 75),
   ];
   CoffeeRecipe recipe = CoffeeRecipe(
       "Test Recipe",
