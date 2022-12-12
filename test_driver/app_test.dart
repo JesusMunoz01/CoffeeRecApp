@@ -107,11 +107,13 @@ void main() {
       });
 
       test("Find/Press Test Recipe and return", () async {
-        final testRecipeTextFinder = find.byValueKey("Test_RecipeText");
-        final testRecipeButtonFinder = find.byValueKey("Test_RecipeButton");
+        final testRecipeTextFinder = find.byValueKey("Texas Coffee RecipeText");
+        final testRecipeButtonFinder =
+            find.byValueKey("Texas Coffee RecipeButton");
         final backBtn = find.byValueKey("goBack");
 
-        expect(await driver.getText(testRecipeTextFinder), "Test_Recipe");
+        expect(
+            await driver.getText(testRecipeTextFinder), "Texas Coffee Recipe");
         await driver.tap(testRecipeButtonFinder);
         await driver.tap(backBtn);
       });
