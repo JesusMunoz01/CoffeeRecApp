@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:homebrew_dripper/models/coffee_recipe.dart';
 import 'package:homebrew_dripper/models/recipe_step.dart';
 import 'package:homebrew_dripper/screens/done_screen.dart';
+import 'package:homebrew_dripper/utils/colors.dart';
 
 class RecipeStepsScreen extends StatefulWidget {
   CoffeeRecipe recipe;
@@ -70,24 +71,68 @@ class _RecipeStepsScreenState extends State<RecipeStepsScreen> {
     RecipeStep currentRecipeStep = widget.recipe.steps[currentStep];
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.chevron_left,
-            color: Color(0xff4c748b),
-          ),
-          onPressed: () => Navigator.of(context).pop(),
-          key: Key('steps-back-btn'),
-        ),
-        title: Text("Recipe Steps"),
-      ),
+      backgroundColor: HombrewColors.colors.blue,
       body: ListView(
         children: [
-          Text("${currentRecipeStep.text}",key: Key('recipe-step'),),
-          Text("${stepTimeRemaining}"),
-          Text("Steps"),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 80, 20, 60),
+            child: Text("${stepTimeRemaining}",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: HombrewColors.colors.white,
+                    fontFamily: 'Kollektif',
+                    fontSize: 96)),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 00, 00, 60),
+            child: Text(
+              "${currentRecipeStep.text}",
+              key: Key('recipe-step'),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: HombrewColors.colors.white,
+                  fontFamily: 'Kollektif',
+                  fontSize: 24),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
+            child: Text("Steps",
+                style: TextStyle(
+                    color: HombrewColors.colors.white,
+                    fontFamily: 'Kollektif',
+                    fontSize: 14)),
+          ),
+          // ignore: sdk_version_ui_as_code
           for (RecipeStep step in remainingSteps)
-            ListTile(title: Text(step.text))
+            if (currentRecipeStep == step)
+              Padding(
+                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: HombrewColors.colors.white, width: 2),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: ListTile(
+                        title: Text(step.text,
+                            style: TextStyle(
+                                color: HombrewColors.colors.white,
+                                fontFamily: 'Kollektif',
+                                fontSize: 14))),
+                  ))
+            else
+              Padding(
+                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: ListTile(
+                    title: Text(
+                      step.text,
+                      style: TextStyle(
+                        color: HombrewColors.colors.white,
+                        fontFamily: 'Kollektif',
+                        fontSize: 14,
+                      ),
+                    ),
+                  ))
         ],
       ),
     );
