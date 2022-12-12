@@ -253,12 +253,12 @@ void main() {
         await driver.tap(backBtn);
       });
 
-      test("Find/Press Test Recipe and return", () async {
-        final testRecipeTextFinder = find.byValueKey("Test RecipeText");
-        final testRecipeButtonFinder = find.byValueKey("Test RecipeButton");
+      test("Find/Press PT's Recipe and return", () async {
+        final testRecipeTextFinder = find.byValueKey("PT'sText");
+        final testRecipeButtonFinder = find.byValueKey("PT'sButton");
         final backBtn = find.byValueKey("goBack");
 
-        expect(await driver.getText(testRecipeTextFinder), "Test Recipe");
+        expect(await driver.getText(testRecipeTextFinder), "PT's");
         await driver.tap(testRecipeButtonFinder);
         await driver.tap(backBtn);
       });

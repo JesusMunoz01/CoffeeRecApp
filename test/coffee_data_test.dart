@@ -14,5 +14,17 @@ void main() {
     expect(recipes[0], isA<CoffeeRecipe>());
     expect(recipes[0].name, "Sweet Maria's");
     expect(recipes[0].steps, isA<List<RecipeStep>>());
+
+    expect(recipes[1], isA<CoffeeRecipe>());
+    expect(recipes[1].name, "Texas Coffee Recipe");
+    expect(recipes[1].steps, isA<List<RecipeStep>>());
+
+    expect(recipes[2], isA<CoffeeRecipe>());
+    expect(recipes[2].name, "PT's");
+    expect(recipes[2].steps, isA<List<RecipeStep>>());
+
+    expect(recipes[3], isA<CoffeeRecipe>());
+    expect(recipes[3].name, "Homegrounds Recipe");
+    expect(recipes[3].steps, isA<List<RecipeStep>>());
   });
 }

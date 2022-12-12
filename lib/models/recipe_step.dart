@@ -3,8 +3,13 @@ class RecipeStep {
   int time;
 
   RecipeStep(text, time) {
-    //add any rules to reject invalid values
-    //for example, reject negative gram amounts
+    if(text == ''){
+      throw ArgumentError();
+    }
+    if(time <= 0){
+      throw ArgumentError();
+    }
+
     this.text = text;
     this.time = time;
   }
