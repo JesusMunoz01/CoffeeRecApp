@@ -21,6 +21,7 @@ class DoneScreen extends StatelessWidget {
           Padding(
               padding: EdgeInsets.fromLTRB(20, 300, 20, 10),
               child: ElevatedButton(
+                key: Key("DoneBtn"),
                 onPressed: () {
                   Navigator.push(
                       context,

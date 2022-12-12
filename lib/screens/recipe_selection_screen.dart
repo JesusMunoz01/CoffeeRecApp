@@ -20,6 +20,7 @@ class RecipeSelectionScreen extends StatelessWidget {
               "Coffee Recipes",
               key: Key("coffee-recipes"),
               style: TextStyle(
+                  fontFamily: 'Kollektif',
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
                   color: Color(0xFF4C748B)),
@@ -31,6 +32,7 @@ class RecipeSelectionScreen extends StatelessWidget {
               "Resources",
               key: Key("resources"),
               style: TextStyle(
+                  fontFamily: 'Kollektif',
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
                   color: Color(0xFF4C748B)),
@@ -56,7 +58,7 @@ class RecipeList extends StatelessWidget {
             height: 280,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                border: Border.all(color: Color(0xFF4C748D), width: 2)),
+                border: Border.all(color: Color(0xFF4C748B), width: 2)),
             child: Column(children: [
               for (CoffeeRecipe recipe in recipes)
                 Container(
@@ -67,6 +69,7 @@ class RecipeList extends StatelessWidget {
                       key: Key("${recipe.name}Text"),
                       style: TextStyle(
                           color: Color(0XFF4C748B),
+                          fontFamily: 'Montserrat',
                           fontSize: 14,
                           fontWeight: FontWeight.w500),
                     ),
@@ -83,7 +86,7 @@ class RecipeList extends StatelessWidget {
                   if (recipe.name != "Homegrounds Recipe")
                     const Divider(
                       thickness: 1,
-                      color: Color(0xFF4C74BD),
+                      color: Color(0xFF4C748B),
                     )
                 ]))
             ]))
@@ -103,7 +106,7 @@ class ResourceList extends StatelessWidget {
             height: 280,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                border: Border.all(color: Color(0xFF4C748D), width: 2)),
+                border: Border.all(color: Color(0xFF4C748B), width: 2)),
             child: Column(children: [
               for (ResourceInfo resource in resources)
                 Container(
@@ -113,6 +116,7 @@ class ResourceList extends StatelessWidget {
                       resource.name,
                       key: Key("${resource.name}ResourceText"),
                       style: TextStyle(
+                          fontFamily: 'Montserrat',
                           color: Color(0XFF4C748B),
                           fontSize: 14,
                           fontWeight: FontWeight.w500),
@@ -128,10 +132,10 @@ class ResourceList extends StatelessWidget {
                       );
                     },
                   ),
-                  if (resource.link != "Link D")
+                  if (resource.name != "Homebrew Dripper")
                     const Divider(
                       thickness: 1,
-                      color: Color(0xFF4C74BD),
+                      color: Color(0xFF4C748B),
                     )
                 ]))
             ]))
