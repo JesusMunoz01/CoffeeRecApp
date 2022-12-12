@@ -77,6 +77,7 @@ class _RecipeStepsScreenState extends State<RecipeStepsScreen> {
           Padding(
             padding: EdgeInsets.fromLTRB(20, 80, 20, 60),
             child: Text("${stepTimeRemaining}",
+                key: Key("startTime${currentStep}"),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: HombrewColors.colors.white,
@@ -87,7 +88,7 @@ class _RecipeStepsScreenState extends State<RecipeStepsScreen> {
             padding: EdgeInsets.fromLTRB(0, 00, 00, 60),
             child: Text(
               "${currentRecipeStep.text}",
-              key: Key('recipe-step'),
+              key: Key('recipeStep${currentStep}'),
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: HombrewColors.colors.white,

@@ -26,11 +26,12 @@ void main() {
       }
     });
 
-    test('starts at 0', () async {
-      // Use the `driver.getText` method to verify the counter starts at 0.
-      expect(await driver.getText(coffeeRecipesTextFinder), "Coffee Recipes");
-    });
-    /*
+    group("Happy Paths", () {
+      test('starts at 0', () async {
+        // Use the `driver.getText` method to verify the counter starts at 0.
+        expect(await driver.getText(coffeeRecipesTextFinder), "Coffee Recipes");
+      });
+      /*
     Given I am on the RecipeSelectionScreen
     When I tap "Sweet Maria's"
     Then I should see "Test Recipe"
@@ -38,66 +39,186 @@ void main() {
     And I should see "360g - water"
     And I should see "Time: 3:45"
     */
-    test('Should go to RecipeDetailScreen when Sweet Marias is pressed',
-        () async {
-      final sweetMariaBtn = find.byValueKey("Sweet Maria'sButton");
-      final detailSweetMaria = find.byValueKey('recipe-name');
-      final coffeText = find.byValueKey('coffee-grams-text');
-      final waterText = find.byValueKey('water-grams-text');
-      final timeText = find.byValueKey('total-time');
+      test('Should go to RecipeDetailScreen when Sweet Marias is pressed',
+          () async {
+        final sweetMariaBtn = find.byValueKey("Sweet Maria'sButton");
+        final detailSweetMaria = find.byValueKey('recipe-name');
+        final coffeText = find.byValueKey('coffee-grams-text');
+        final waterText = find.byValueKey('water-grams-text');
+        final timeText = find.byValueKey('total-time');
 
-      await driver.tap(sweetMariaBtn);
-      expect(await driver.getText(detailSweetMaria), "Sweet Maria's");
-      expect(await driver.getText(coffeText), '22g - finely ground coffee');
-      expect(await driver.getText(waterText), '360g - water');
-      expect(await driver.getText(timeText), 'Total: 3:45');
-    });
+        await driver.tap(sweetMariaBtn);
+        expect(await driver.getText(detailSweetMaria), "Sweet Maria's");
+        expect(await driver.getText(coffeText), '22g - finely ground coffee');
+        expect(await driver.getText(waterText), '360g - water');
+        expect(await driver.getText(timeText), 'Total: 3:45');
+      });
 
-    /*
+      /*
     Given I am on the RecipeDetailScreen
     When I tap the back button
     Then I should see "Coffee Recipes"
     */
-    test('Should go back to RecipeSelectionScreen when back button is pressed',
-        () async {
-      final detailBackBtn = find.byValueKey('goBack');
-      final recipeTitle = find.byValueKey('coffee-recipes');
+      test(
+          'Should go back to RecipeSelectionScreen when back button is pressed',
+          () async {
+        final detailBackBtn = find.byValueKey('goBack');
+        final recipeTitle = find.byValueKey('coffee-recipes');
 
-      await driver.tap(detailBackBtn);
-      expect(await driver.getText(recipeTitle), "Coffee Recipes");
+        await driver.tap(detailBackBtn);
+        expect(await driver.getText(recipeTitle), "Coffee Recipes");
+      });
+
+      /*
+    Given I am on the Sweet Maria's RecipeDetailScreen
+    When I tap the "Start" button
+    Then I should see "30"
+    And I should see "Add 360g water"
+    When 30 seconds have passed
+    Then I should see "90"
+    And I should see "Cover and wait"
+    When 90 seconds have passed
+    Then I should see "15"
+    And I should see "Stir"
+    When 15 seconds have passed
+    Then I should see "75"
+    And I should see "Cover and wait"
+    When 75 seconds have passed
+    Then I should see "15"
+    And I should see "Stir"
+    When 15 seconds have passed
+    Then I should see "Enjoy your amazing handmade coffee"
+    And press the done button
+    */
+      test('Should start the steps timer when start is pressed', () async {
+        final sweetMariaBtn = find.byValueKey("Sweet Maria'sButton");
+        final startBtn = find.byValueKey('start-btn');
+        final firstStep = find.byValueKey('recipeStep0');
+        final firstStepTimer = find.byValueKey("startTime0");
+        final doneBtn = find.byValueKey('DoneBtn');
+
+        await driver.tap(sweetMariaBtn);
+        await driver.tap(startBtn);
+
+        expect(await driver.getText(firstStepTimer), "30");
+        expect(
+          await driver.getText(firstStep),
+          'Add 360g water',
+        );
+
+        final secondStep = find.byValueKey('recipeStep1');
+        final secondStepTimer = find.byValueKey("startTime1");
+        expect(await driver.getText(secondStepTimer), "90");
+        expect(await driver.getText(secondStep), "Cover and wait");
+
+        final thirdStep = find.byValueKey('recipeStep2');
+        final thirdStepTimer = find.byValueKey("startTime2");
+        expect(await driver.getText(thirdStepTimer), "15");
+        expect(await driver.getText(thirdStep), "Stir");
+
+        final fourthStep = find.byValueKey('recipeStep3');
+        final fourthStepTimer = find.byValueKey("startTime3");
+        expect(await driver.getText(fourthStepTimer), "75");
+        expect(await driver.getText(fourthStep), "Cover and wait");
+
+        final fifthStep = find.byValueKey('recipeStep4');
+        final fifthStepTimer = find.byValueKey("startTime4");
+        expect(await driver.getText(fifthStepTimer), "15");
+        expect(await driver.getText(fifthStep), "Stir");
+
+        await driver.tap(doneBtn);
+      }, timeout: Timeout(Duration(seconds: 600)));
     });
 
-    /*
-    Given I am on the RecipeDetailScreen
+    group("Sad Path", () {
+      /*
+    Given I am on the Sweet Maria's RecipeDetailScreen
     When I tap the "Start" button
-    Then I should see "Add 360g water"
+    Then I should see "30"
+    And I should see "Add 360g water"
+    When 30 seconds have not passed
+    Then I should still see "Add 360g water"
+
+    When 30 seconds have passed
+    Then I should see "90"
+    And I should see "Cover and wait"
+    When 90 seconds have not passed
+    Then I should still see "Cover and wait"
+  
+    When 90 seconds have passed
+    Then I should see "15"
+    And I should see "Stir"
+    When 15 seconds have not passed
+    Then I should still see "Stir"
+
+    When 15 seconds have passed
+    Then I should see "75"
+    And I should see "Cover and wait"
+    When 75 seconds have not passed
+    Then I should still see "Cover and wait"
+  
+    When 75 seconds have passed
+    Then I should see "15"
+    And I should see "Stir"
+    When 15 seconds have not passed
+    Then I should still see "Stir"
+
+    When 15 seconds have passed
+    Then I should see "Enjoy your amazing handmade coffee"
+    And press the done button
     */
-    // test('Should start the steps timer when start is pressed', () async {
-    //   final sweetMariaBtn = find.byValueKey("Sweet Maria'sButton");
-    //   final startBtn = find.byValueKey('start-btn');
-    //   final firstStep = find.byValueKey('recipe-step');
-    //   final doneBtn = find.byValueKey('done-btn'); //FIXME
-    //   await Future.delayed(const Duration(seconds: 2));
-    //   await driver.tap(sweetMariaBtn);
-    //   await driver.tap(startBtn);
-    //   expect(
-    //     await driver.getText(firstStep),
-    //     'Add 360g water',
-    //   );
-    //   await Future.delayed(const Duration(seconds: 30));
-    //   expect(await driver.getText(firstStep), 'Cover and wait');
-    //   await Future.delayed(const Duration(seconds: 90));
-    //   expect(await driver.getText(firstStep), 'Stir');
-    //   await Future.delayed(const Duration(seconds: 15));
-    //   expect(await driver.getText(firstStep), 'Cover and wait');
-    //   await Future.delayed(const Duration(seconds: 75));
-    //   expect(await driver.getText(firstStep), 'Stir');
-    //   await Future.delayed(const Duration(seconds: 15));
+      test('Should start the steps timer when start is pressed', () async {
+        final sweetMariaBtn = find.byValueKey("Sweet Maria'sButton");
+        final startBtn = find.byValueKey('start-btn');
+        final firstStep = find.byValueKey('recipeStep0');
+        final firstStepTimer = find.byValueKey("startTime0");
+        final doneBtn = find.byValueKey('DoneBtn');
 
-    //   // Added these for ease of passing tests for now, remove later when working on steps screen
-    //   await driver.tap(doneBtn);
-    // });
+        await driver.tap(sweetMariaBtn);
+        await driver.tap(startBtn);
 
+        expect(await driver.getText(firstStepTimer), "30");
+        expect(
+          await driver.getText(firstStep),
+          'Add 360g water',
+        );
+        await Future.delayed(Duration(seconds: 15));
+        expect(
+          await driver.getText(firstStep),
+          'Add 360g water',
+        );
+
+        final secondStep = find.byValueKey('recipeStep1');
+        final secondStepTimer = find.byValueKey("startTime1");
+        expect(await driver.getText(secondStepTimer), "90");
+        expect(await driver.getText(secondStep), "Cover and wait");
+        await Future.delayed(Duration(seconds: 75));
+        expect(await driver.getText(secondStep), "Cover and wait");
+
+        final thirdStep = find.byValueKey('recipeStep2');
+        final thirdStepTimer = find.byValueKey("startTime2");
+        expect(await driver.getText(thirdStepTimer), "15");
+        expect(await driver.getText(thirdStep), "Stir");
+        await Future.delayed(Duration(seconds: 5));
+        expect(await driver.getText(thirdStep), "Stir");
+
+        final fourthStep = find.byValueKey('recipeStep3');
+        final fourthStepTimer = find.byValueKey("startTime3");
+        expect(await driver.getText(fourthStepTimer), "75");
+        expect(await driver.getText(fourthStep), "Cover and wait");
+        await Future.delayed(Duration(seconds: 45));
+        expect(await driver.getText(fourthStep), "Cover and wait");
+
+        final fifthStep = find.byValueKey('recipeStep4');
+        final fifthStepTimer = find.byValueKey("startTime4");
+        expect(await driver.getText(fifthStepTimer), "15");
+        expect(await driver.getText(fifthStep), "Stir");
+        await Future.delayed(Duration(seconds: 10));
+        expect(await driver.getText(fifthStep), "Stir");
+
+        await driver.tap(doneBtn);
+      }, timeout: Timeout(Duration(seconds: 600)));
+    });
     group("Recipe Selection Screen Tests", () {
       test("Find/Press Sweet Maria's Recipe and return", () async {
         final sweetMariaTextFinder = find.byValueKey("Sweet Maria'sText");
@@ -142,31 +263,40 @@ void main() {
         await driver.tap(backBtn);
       });
       test("Find/Press Coffee Resource and return", () async {
-        final sweetMariaTextFinder = find.byValueKey("CoffeeResourceText");
-        final sweetMariaButtonFinder = find.byValueKey("CoffeeResourceButton");
+        final coffeeTextFinder = find.byValueKey("CoffeeResourceText");
+        final coffeeButtonFinder = find.byValueKey("CoffeeResourceButton");
+        final link = find.byValueKey("linkText");
         final backBtn = find.byValueKey("goBackR");
 
-        expect(await driver.getText(sweetMariaTextFinder), "Coffee");
-        await driver.tap(sweetMariaButtonFinder);
+        expect(await driver.getText(coffeeTextFinder), "Coffee");
+        await driver.tap(coffeeButtonFinder);
+        expect(await driver.getText(link),
+            "https://www.homegrounds.co/best-coffee-beans-bucket-list/");
         await driver.tap(backBtn);
       });
       test("Find/Press Grinders Resource and return", () async {
         final grindersTextFinder = find.byValueKey("GrindersResourceText");
         final grindersButtonFinder = find.byValueKey("GrindersResourceButton");
+        final link = find.byValueKey("linkText");
         final backBtn = find.byValueKey("goBackR");
 
         expect(await driver.getText(grindersTextFinder), "Grinders");
         await driver.tap(grindersButtonFinder);
+        expect(await driver.getText(link),
+            "https://www.homegrounds.co/best-hand-coffee-grinders/");
         await driver.tap(backBtn);
       });
 
       test("Find/Press Kettles Resource and return", () async {
         final kettlesTextFinder = find.byValueKey("KettlesResourceText");
         final kettlesButtonFinder = find.byValueKey("KettlesResourceText");
+        final link = find.byValueKey("linkText");
         final backBtn = find.byValueKey("goBackR");
 
         expect(await driver.getText(kettlesTextFinder), "Kettles");
         await driver.tap(kettlesButtonFinder);
+        expect(await driver.getText(link),
+            "https://www.homegrounds.co/5-best-pour-coffee-kettles-gooseneck-kettles-reviewed/");
         await driver.tap(backBtn);
       });
 
@@ -176,10 +306,13 @@ void main() {
         final homebrewDripperButtonFinder =
             find.byValueKey("Homebrew DripperResourceButton");
         final backBtn = find.byValueKey("goBackR");
+        final link = find.byValueKey("linkText");
 
         expect(await driver.getText(homebrewDripperTextFinder),
             "Homebrew Dripper");
         await driver.tap(homebrewDripperButtonFinder);
+        expect(await driver.getText(link),
+            "https://www.homegrounds.co/best-drip-coffee-maker-reviews/");
         await driver.tap(backBtn);
       });
     });

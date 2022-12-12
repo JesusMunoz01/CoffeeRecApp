@@ -24,7 +24,11 @@ class ResourceDetailScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Text("${resource.link}"),
+          Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 20)),
+          Text(
+            "${resource.link}",
+            key: Key("linkText"),
+          ),
         ],
       ),
     );
