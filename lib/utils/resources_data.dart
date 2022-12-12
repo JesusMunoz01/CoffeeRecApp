@@ -1,22 +1,28 @@
 import 'package:homebrew_dripper/models/resource_info.dart';
 
 ResourceInfo coffeeResource() {
-  ResourceInfo resource = ResourceInfo("Link A", "Coffee");
+  ResourceInfo resource = ResourceInfo(
+      "https://www.homegrounds.co/best-coffee-beans-bucket-list/", "Coffee");
   return resource;
 }
 
 ResourceInfo grindersResource() {
-  ResourceInfo resource = ResourceInfo("Link B", "Grinders");
+  ResourceInfo resource = ResourceInfo(
+      "https://www.homegrounds.co/best-hand-coffee-grinders/", "Grinders");
   return resource;
 }
 
 ResourceInfo kettlesResource() {
-  ResourceInfo resource = ResourceInfo("Link C", "Kettles");
+  ResourceInfo resource = ResourceInfo(
+      "https://www.homegrounds.co/5-best-pour-coffee-kettles-gooseneck-kettles-reviewed/",
+      "Kettles");
   return resource;
 }
 
 ResourceInfo homebrewDripperResource() {
-  ResourceInfo resource = ResourceInfo("Link D", "Homebrew Dripper");
+  ResourceInfo resource = ResourceInfo(
+      "https://www.homegrounds.co/best-drip-coffee-maker-reviews/",
+      "Homebrew Dripper");
   return resource;
 }
 
